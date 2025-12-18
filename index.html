@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoFlow - Автоматизация Бизнес-Процессов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(30px) translateX(20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 45px;
+            background: #fff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 50px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Trust Section */
+        .trust {
+            padding: 80px 0;
+            background: #0f0f0f;
+            text-align: center;
+        }
+
+        .trust-text {
+            color: #888;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-3px);
+            border-color: rgba(102, 126, 234, 0.6);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 1.2rem;
+            margin-bottom: 70px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .portfolio-card {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2);
+        }
+
+        .portfolio-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 35px;
+        }
+
+        .portfolio-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .portfolio-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .portfolio-body {
+            padding: 35px;
+        }
+
+        .portfolio-body p {
+            color: #aaa;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .portfolio-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .portfolio-features li {
+            color: #888;
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .portfolio-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .portfolio-result {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .portfolio-result strong {
+            color: #667eea;
+            font-size: 1.05rem;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+
+        .benefits::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .benefits .section-title {
+            color: #fff;
+            background: none;
+            -webkit-text-fill-color: #fff;
+        }
+
+        .benefits .section-subtitle {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .benefit-text {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -250px;
+            left: -250px;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+        }
+
+        .cta-section .intro-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card h3 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .contact-card p {
+            color: #333;
+            font-size: 1.15rem;
+            margin-bottom: 35px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 22px 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-icon {
+            font-size: 1.8rem;
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            padding-top: 35px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .contact-info p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-info strong {
+            color: #667eea;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        footer p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero p {
+                font-size: 1.05rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-stats {
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .cta-button {
+                display: block;
+                margin: 15px 0;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Автоматизируйте бизнес<br>и освободите 70% времени</h1>
+                <p class="hero-subtitle">Ваши сотрудники тратят часы на рутину?</p>
+                <p>Разрабатываем Telegram-ботов, парсеры и интеграции, которые работают за вас 24/7.<br>Забудьте о ручной работе — доверьте её технологиям.</p>
+                <div>
+                    <a href="#contact" class="cta-button">Связаться с нами</a>
+                    <a href="#portfolio" class="cta-button" style="background: rgba(255,255,255,0.15); color: #fff;">Смотреть кейсы</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Реализованных проектов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">70%</span>
+                        <span class="stat-label">Экономия времени</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Работа без выходных</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="container">
+            <p class="trust-text">Технологии, которым доверяют</p>
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Aiogram</span>
+                <span class="tech-badge">Selenium</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Bitrix24 API</span>
+                <span class="tech-badge">Google Sheets</span>
+                <span class="tech-badge">SQLAlchemy</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Реализованные проекты</h2>
+            <p class="section-subtitle">Реальные кейсы автоматизации для бизнеса</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <h3>Control Bot</h3>
+                        <span class="portfolio-tag">Контроль задач</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p>Бот для автоматизации контроля выполнения задач в организации. Взаимодействует с контролёрами через ЛС и групповые чаты, напоминает о задачах и формирует отчёты.</p>
+                        <ul class="portfolio-features">
+                            <li>Автоматическая отправка по расписанию</li>
+                            <li>Контроль просроченных задач через 10 минут</li>
+                            <li>Ежедневные отчёты по департаментам</li>
+                            <li>Интеграция с Google Sheets</li>
+                            <li>Гибкое расписание и уведомления</li>
+                        </ul>
+                        <div class="portfolio-result">
+                            <strong>Результат:</strong> Экономия 15+ часов в неделю на контроле, 100% прозрачность выполнения задач
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <h3>Alarm Clock Bot</h3>
+                        <span class="portfolio-tag">CRM автоматизация</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p>Бот-будильник для карточек в CRM, помогающий менеджерам не забывать о важных задачах и сроках по лидам.</p>
+                        <ul class="portfolio-features">
+                            <li>Создание напоминаний через диалог с ботом</li>
+                            <li>Автоматическая синхронизация с Google Таблицами</li>
+                            <li>Уведомления в общий чат по наступлению срока</li>
+                            <li>Управление и удаление напоминаний</li>
+                            <li>Многопользовательский режим</li>
+                        </ul>
+                        <div class="portfolio-result">
+                            <strong>Результат:</strong> 0% упущенных лидов, повышение конверсии на 30%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <h3>Chat Monitor Bot</h3>
+                        <span class="portfolio-tag">Мониторинг</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p>Автоматическая проверка работы онлайн-чатов на сайтах с отправкой скриншотов и уведомлений при обнаружении проблем.</p>
+                        <ul class="portfolio-features">
+                            <li>Проверка через Selenium с undetected-chromedriver</li>
+                            <li>Автоматические скриншоты состояния чата</li>
+                            <li>Моментальные уведомления при проблемах</li>
+                            <li>Управление через Telegram интерфейс</li>
+                            <li>Настраиваемый список сайтов и тегов</li>
+                        </ul>
+                        <div class="portfolio-result">
+                            <strong>Результат:</strong> Обнаружение проблем за минуты вместо часов, сохранение клиентов
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <h3>Bitrix24 Checker</h3>
+                        <span class="portfolio-tag">HR автоматизация</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p>Автоматическая проверка актуализации карточек кандидатов в Bitrix24 для оперативного отслеживания зависших лидов.</p>
+                        <ul class="portfolio-features">
+                            <li>Интеграция с Bitrix24 API</li>
+                            <li>Проверка карточек старше 2 рабочих дней</li>
+                            <li>Отчёты по каждому менеджеру с ссылками</li>
+                            <li>Автоматические уведомления в Telegram</li>
+                            <li>Исключение выходных дней из расчётов</li>
+                        </ul>
+                        <div class="portfolio-result">
+                            <strong>Результат:</strong> Сокращение времени найма на 25%, порядок в CRM
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <h3>InfoScout</h3>
+                        <span class="portfolio-tag">Аналитика</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p>Бот для сбора статистики по Telegram-группам с отслеживанием участников, сообщений и ключевых событий.</p>
+                        <ul class="portfolio-features">
+                            <li>Автоматическое добавление групп в БД</li>
+                            <li>Отслеживание входов/выходов участников</li>
+                            <li>Сохранение сообщений и событий</li>
+                            <li>PostgreSQL + SQLAlchemy Async</li>
+                            <li>Детальное логирование активности</li>
+                        </ul>
+                        <div class="portfolio-result">
+                            <strong>Результат:</strong> Полная аналитика сообществ, данные для стратегических решений
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Результаты автоматизации</h2>
+            <p class="section-subtitle">Реальная экономика для вашего бизнеса</p>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-number">70%</div>
+                    <div class="benefit-text">Экономия времени сотрудников</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">50%</div>
+                    <div class="benefit-text">Снижение операционных расходов</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">99%</div>
+                    <div class="benefit-text">Точность обработки данных</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-number">24/7</div>
+                    <div class="benefit-text">Бесперебойная работа систем</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Готовы начать автоматизацию?</h2>
+                <p class="intro-text">Свяжитесь с нами удобным способом</p>
+            </div>
+            
+            <div class="contact-card">
+                <h3>Напишите нам</h3>
+                <p>Ответим в течение часа и обсудим ваш проект</p>
+                <div class="contact-buttons">
+                    <a href="https://t.me/JolyRed" class="contact-btn" target="_blank">
+                        <span class="contact-icon">📱</span>
+                        Написать в Telegram
+                    </a>
+                    <a href="mailto:nikklim.3301@gmail.com" class="contact-btn">
+                        <span class="contact-icon">✉️</span>
+                        Отправить Email
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 AutoFlow. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
